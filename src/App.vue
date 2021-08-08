@@ -1,4 +1,3 @@
-
 <template>
   <div id="app">
     <h1>Znansveni radovi</h1>
@@ -10,7 +9,9 @@
       <button class="btn" :disabled="isDisabled" v-on:click="moveUp()">
         Move up +
       </button>
-      <button class="btn" :disabled="isDisabled" v-on:click="moveDown()">Move down -</button>
+      <button class="btn" :disabled="isDisabled" v-on:click="moveDown()">
+        Move down -
+      </button>
     </div>
     <List
       :radovi="this.znanstveniRadovi"
@@ -47,29 +48,43 @@ export default {
         this.znanstveniRadovi = noviRadovi;
       },
       moveUp() {
-          const from = this.znanstveniRadovi.indexOf(this.odabraniRadovi[0]);
-          let to=from+1
+        const from = this.znanstveniRadovi.indexOf(this.odabraniRadovi[0]);
+        let to = from + 1;
 
-          if(from!=this.znanstveniRadovi.length-1){
-         this.znanstveniRadovi.splice(to, 0, this.znanstveniRadovi.splice(from, 1)[0]);
-         }else {
-           to=0
-         this.znanstveniRadovi.splice(to, 0, this.znanstveniRadovi.splice(from, 1)[0]);
-
-         }
+        if (from != this.znanstveniRadovi.length - 1) {
+          this.znanstveniRadovi.splice(
+            to,
+            0,
+            this.znanstveniRadovi.splice(from, 1)[0]
+          );
+        } else {
+          to = 0;
+          this.znanstveniRadovi.splice(
+            to,
+            0,
+            this.znanstveniRadovi.splice(from, 1)[0]
+          );
+        }
       },
-      moveDown(){
-         const from = this.znanstveniRadovi.indexOf(this.odabraniRadovi[0]);
-          let to=from-1
+      moveDown() {
+        const from = this.znanstveniRadovi.indexOf(this.odabraniRadovi[0]);
+        let to = from - 1;
 
-          if(from!=0){
-         this.znanstveniRadovi.splice(to, 0, this.znanstveniRadovi.splice(from, 1)[0]);
-         }else {
-           to=this.znanstveniRadovi.length-1
-         this.znanstveniRadovi.splice(to, 0, this.znanstveniRadovi.splice(from, 1)[0]);
-
-         }
-      }
+        if (from != 0) {
+          this.znanstveniRadovi.splice(
+            to,
+            0,
+            this.znanstveniRadovi.splice(from, 1)[0]
+          );
+        } else {
+          to = this.znanstveniRadovi.length - 1;
+          this.znanstveniRadovi.splice(
+            to,
+            0,
+            this.znanstveniRadovi.splice(from, 1)[0]
+          );
+        }
+      },
     };
   },
   created() {
@@ -95,7 +110,6 @@ export default {
 
   watch: {
     "odabraniRadovi.length"() {
-      console.log('radovi',this.odabraniRadovi),
       this.isDisabled = this.odabraniRadovi.length == 1 ? false : true;
     },
   },

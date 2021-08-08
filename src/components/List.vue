@@ -23,7 +23,7 @@ export default {
     return {
       zanrKojeSeNajvisePonavlja: null,
       znarKojiSePonavlja() {
-         let zanrovi = [];
+        let zanrovi = [];
         this.radovi.forEach((rad) => {
           rad.zanr.forEach((element) => {
             zanrovi.push(element);
@@ -31,17 +31,15 @@ export default {
         });
         this.zanrKojeSeNajvisePonavlja = elementKojiSeNajvisePonavlja(
           zanrovi
-        ).newMostFrequent
-
-      }
-    }
+        ).newMostFrequent;
+      },
+    };
   },
   mounted() {
-       this.$watch("radovi", () => {
+    this.$watch("radovi", () => {
       this.znarKojiSePonavlja();
     });
   },
-
 };
 </script>
 

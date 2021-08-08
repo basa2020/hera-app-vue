@@ -12,11 +12,9 @@
     >
       Zanr : {{ zanr }}
     </p>
-    <p
-      v-for="najduziZanr of najduziZanrovi"
-      :key="najduziZanr.naziv"
-    >
-      NajduziZanr : {{ najduziZanr.naziv }} , Duzina : {{najduziZanr.naziv.length}}
+    <p v-for="najduziZanr of najduziZanrovi" :key="najduziZanr.naziv">
+      NajduziZanr : {{ najduziZanr.naziv }} , Duzina :
+      {{ najduziZanr.naziv.length }}
     </p>
     <button class="btn" v-on:click="izbrisiElement(rad)">Izbrisi Rad</button>
   </div>
@@ -37,7 +35,7 @@ export default {
       isSelected: false,
       zanrovi: [],
       starost: [],
-      najduziZanrovi:[],
+      najduziZanrovi: [],
       odaberiRad(rad) {
         this.isSelected = !this.isSelected;
         const postoji = this.odabraniRadovi.find((p) => p.id === rad.id);
@@ -54,43 +52,32 @@ export default {
 
         this.znanstveniRadovi.splice(id, 1);
       },
-      duzinaZanrova(zanrovi){
-    console.log('udje')
-    console.log('najduzi',this.najduziZanrovi)
-
-      zanrovi.forEach((element) => {
-    console.log('element',element)
-
-        if (element.naziv.length > 16) {
-
-          this.najduziZanrovi.push(element)
-        }
-        if (element.podZanrovi) {
-          element.podZanrovi.forEach((item) => {
-    console.log('item',item)
-
-            if (item.naziv.length > 16) {
-              this.najduziZanrovi.push(item)
-
-            }
-            this.duzinaZanrova(item.podZanrovi);
-          });
-        }
-      });
-
+      duzinaZanrova(zanrovi) {
+        zanrovi.forEach((element) => {
+          if (element.naziv.length > 16) {
+            this.najduziZanrovi.push(element);
+          }
+          if (element.podZanrovi) {
+            element.podZanrovi.forEach((item) => {
+              if (item.naziv.length > 16) {
+                this.najduziZanrovi.push(item);
+              }
+              this.duzinaZanrova(item.podZanrovi);
+            });
+          }
+        });
+      },
+    };
   },
-  }},
   created() {
-    console.log('udje')
     this.zanrovi = sortiranjeZanr(this.rad.zanr);
     const { datumIzdanja } = this.rad.datum;
     var godinaIzdanja = datumIzdanja.substr(datumIzdanja.length - 4);
     const now = new Date().getFullYear();
 
     this.starost = now - godinaIzdanja;
-    console.log('najduzi',this.rad.podZanrovi)
 
-    this.duzinaZanrova(this.rad.podZanrovi)
+    this.duzinaZanrova(this.rad.podZanrovi);
   },
 };
 </script>
